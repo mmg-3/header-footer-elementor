@@ -1768,10 +1768,8 @@ class Navigation_Menu extends Widget_Base {
 		$this->end_controls_section();
 	}
  	protected function function1() {
- 		$args2 = [
- 			'role' => 'menuitem',
- 			'itemprop' => 'name',
- 		];
+ 		$this->add_render_attribute( 'schema' ,'role','menuitem');
+ 		$this->add_render_attribute('schema','itemprop','name');
  	}
 	/**
 	 * Render Nav Menu output on the frontend.
@@ -1796,8 +1794,7 @@ class Navigation_Menu extends Widget_Base {
 		];
 
 		if( 'yes' === $settings['schema_support'] ) {
-			// $args = array_push($args, 'menuitem');
-			add_filter( 'enable_schema_support', $args , 10, 2 );
+			add_filter( 'enable_schema_support', array('this','function1') );
 		}
 
 		$menu_html = wp_nav_menu( $args );
