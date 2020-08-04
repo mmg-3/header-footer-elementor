@@ -231,6 +231,17 @@ class Navigation_Menu extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'schema_support',
+			array(
+				'label'     => __( 'Enable Schema Support', 'uael' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => __( 'Yes', 'uael' ),
+				'label_off' => __( 'No', 'uael' ),
+				'default'   => 'no',
+			)
+		);
+
 		$this->end_controls_section();
 
 			$this->start_controls_section(
@@ -1756,7 +1767,12 @@ class Navigation_Menu extends Widget_Base {
 
 		$this->end_controls_section();
 	}
-
+ 	protected function function1() {
+ 		$args2 = [
+ 			'role' => 'menuitem',
+ 			'itemprop' => 'name',
+ 		];
+ 	}
 	/**
 	 * Render Nav Menu output on the frontend.
 	 *
@@ -1779,7 +1795,18 @@ class Navigation_Menu extends Widget_Base {
 			'walker'      => new Menu_Walker,
 		];
 
+		if( 'yes' === $settings['schema_support'] ) {
+			// $args = array_push($args, 'menuitem');
+			add_filter( 'enable_schema_support', $args , 10, 2 );
+		}
+
 		$menu_html = wp_nav_menu( $args );
+
+		if( 'yes' === $settings['schema_support'] ) {
+			$this->add_render_attribute( 'hfe-nav-menu', 'itemtype', 'https://schema.org/SiteNavigationElement' );
+			$this->add_render_attribute( 'hfe-nav-menu','role','menu' );
+			$this->add_render_attribute( 'hfe-nav-menu', 'itemscope', 'itemscope' );
+		}
 
 		if ( 'flyout' === $settings['layout'] ) {
 
