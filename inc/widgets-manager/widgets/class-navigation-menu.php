@@ -1786,7 +1786,7 @@ class Navigation_Menu extends Widget_Base {
 	 */
 	public function handle_link_attrs( $atts ) {
 
-		$atts = 'itemprop="url"';
+		$atts = array( 'itemprop' => 'url' );
 		return $atts;
 	}
 

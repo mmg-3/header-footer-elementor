@@ -48,20 +48,30 @@ class Menu_Walker extends \Walker_Nav_Menu {
 
 		$output .= $indent . '<li id="menu-item-' . $item->ID . '"' . $value . $class_names . '>';
 
+		$atts           = array();
+	
 		if ( isset( $item->target ) && '_blank' === $item->target && isset( $item->xfn ) && false === strpos( $item->xfn, 'noopener' ) ) {
 			$rel_xfn = ' noopener';
+			$atts['rel'] = $rel_xfn;
 		}
 		if ( isset( $item->target ) && '_blank' === $item->target && isset( $item->xfn ) && empty( $item->xfn ) ) {
-			$rel_blank = 'rel="noopener"';
+			$rel_blank = 'noopener';
+			$atts['rel'] = $rel_blank;
 		}
 
-		$attributes  = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-		$attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
-		$attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . $rel_xfn . '"' : '' . $rel_blank;
-		$attributes .= ! empty( $item->url ) ? ' href="' . esc_attr( $item->url ) . '"' : '';
+		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
+		$atts['target'] = ! empty( $item->target ) ? $item->target : '';
+		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
+		$atts['href']   = ! empty( $item->url ) ? $item->url : '';
 
-		$attributes .= apply_filters( 'hfe_nav_menu_attrs', $attributes );
-
+		$atts = apply_filters( 'hfe_nav_menu_attrs', $atts, $item, $args, $depth );
+		$attributes = '';
+		foreach ( $atts as $attr => $value ) {
+			if ( ! empty( $value ) ) {
+				$value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+				$attributes .= ' ' . $attr . '="' . $value . '"';
+			}
+		}
 		$item_output  = $args->has_children ? '<div class="hfe-has-submenu-container">' : '';
 		$item_output .= $args->before;
 		$item_output .= '<a' . $attributes;
