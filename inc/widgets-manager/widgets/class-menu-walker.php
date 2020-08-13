@@ -56,12 +56,11 @@ class Menu_Walker extends \Walker_Nav_Menu {
 		}
 		if ( isset( $item->target ) && '_blank' === $item->target && isset( $item->xfn ) && empty( $item->xfn ) ) {
 			$rel_blank = 'noopener';
-			$atts['rel'] = $rel_blank;
 		}
 
 		$atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 		$atts['target'] = ! empty( $item->target ) ? $item->target : '';
-		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
+		$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : $rel_blank;
 		$atts['href']   = ! empty( $item->url ) ? $item->url : '';
 
 		$atts = apply_filters( 'hfe_nav_menu_attrs', $atts, $item, $args, $depth );
