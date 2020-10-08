@@ -99,10 +99,10 @@ class Widgets_Manager {
 
 		if ( ! empty( $widget_list ) ) {
 			foreach ( $widget_list as $handle => $data ) {
-				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/module.php';
-				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/widgets/' . $data . '.php';
+				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/class-module.php';
+				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/widgets/class-' . $data . '.php';
 			}
-			require_once HFE_DIR . 'inc/widgets-manager/widgets/navigation-menu/widgets/menu-walker.php';
+			require_once HFE_DIR . 'inc/widgets-manager/widgets/navigation-menu/widgets/class-menu-walker.php';
 		}
 
 		if ( ! empty( $js_files ) ) {

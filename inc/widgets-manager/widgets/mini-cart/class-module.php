@@ -8,7 +8,7 @@
 namespace HFE\WidgetsManager\Widgets\MiniCart;
 
 use HFE\WidgetsManager\Widgets_Loader;
-use HFE\WidgetsManager\Widgets\Cart\Widgets\MiniCart;
+use HFE\WidgetsManager\Widgets\MiniCart\Widgets\MiniCart;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
