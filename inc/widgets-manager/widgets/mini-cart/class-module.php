@@ -4,6 +4,7 @@
  *
  * @package header-footer-elementor
  */
+
 namespace HFE\WidgetsManager\Widgets\MiniCart;
 
 use HFE\WidgetsManager\Widgets_Loader;
@@ -27,9 +28,9 @@ class Module extends Widgets_Loader {
 	 * @return array Widgets.
 	 */
 	public function get_widgets() {
-		return array(
+		return [
 			'Mini_Cart',
-		);
+		];
 	}
 
 	/**

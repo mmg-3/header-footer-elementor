@@ -4,7 +4,8 @@
  *
  * @package header-footer-elementor
  */
-namespace HFE\WidgetsManager\Widgets\Copyright;
+
+namespace HFE\WidgetsManager\Widgets\SiteTitle;
 
 use HFE\WidgetsManager\Widgets_Loader;
 
@@ -26,9 +27,9 @@ class Module extends Widgets_Loader {
 	 * @return array Widgets.
 	 */
 	public function get_widgets() {
-		return array(
-			'Copyright',
-		);
+		return [
+			'Site_Title',
+		];
 	}
 
 	/**

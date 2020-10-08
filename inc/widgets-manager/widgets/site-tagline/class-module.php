@@ -4,7 +4,8 @@
  *
  * @package header-footer-elementor
  */
-namespace HFE\WidgetsManager\Widgets\NavigationMenu;
+
+namespace HFE\WidgetsManager\Widgets\SiteTagline;
 
 use HFE\WidgetsManager\Widgets_Loader;
 
@@ -26,9 +27,9 @@ class Module extends Widgets_Loader {
 	 * @return array Widgets.
 	 */
 	public function get_widgets() {
-		return array(
-			'Navigation_Menu',
-		);
+		return [
+			'Site_Tagline',
+		];
 	}
 
 	/**

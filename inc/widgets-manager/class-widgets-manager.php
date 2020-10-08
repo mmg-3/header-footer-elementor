@@ -24,7 +24,7 @@ class Widgets_Manager {
 	 *
 	 * @var modules.
 	 */
-	private $_modules = array(); // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
+	private $_modules = []; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * Register Modules.
@@ -80,7 +80,7 @@ class Widgets_Manager {
 	 */
 	public function __construct() {
 		add_action( 'elementor/elements/categories_registered', [ $this, 'register_widget_category' ] );
-		
+
 		$this->require_files();
 		$this->register_modules();
 	}
@@ -140,7 +140,7 @@ class Widgets_Manager {
 	 * @since 1.3.0
 	 */
 	public static function get_widget_list() {
-		$widget_list = [	
+		$widget_list = [
 			'mini-cart',
 			'copyright',
 			'navigation-menu',
@@ -149,7 +149,7 @@ class Widgets_Manager {
 			'search-button',
 			'site-logo',
 			'site-tagline',
-			'site-title'
+			'site-title',
 		];
 
 		return $widget_list;

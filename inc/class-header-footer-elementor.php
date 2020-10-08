@@ -241,7 +241,7 @@ class Header_Footer_Elementor {
 		// Load the widgets.
 		require HFE_DIR . 'inc/widgets-manager/class-widgets-manager.php';
 
-		add_action( 'elementor/init', array( $this, 'elementor_init' ) );
+		add_action( 'elementor/init', [ $this, 'elementor_init' ] );
 	}
 
 	/**

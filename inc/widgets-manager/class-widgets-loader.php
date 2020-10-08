@@ -30,7 +30,7 @@ abstract class Widgets_Loader {
 	 *
 	 * @var instances
 	 */
-	protected static $instances = array();
+	protected static $instances = [];
 
 	/**
 	 * Class name to Call
@@ -76,7 +76,7 @@ abstract class Widgets_Loader {
 		$this->reflection = new \ReflectionClass( $this );
 		// Register category.
 
-		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
+		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 	}
 
 	/**
@@ -89,13 +89,12 @@ abstract class Widgets_Loader {
 		$widget_manager = \Elementor\Plugin::instance()->widgets_manager;
 
 		foreach ( $this->get_widgets() as $widget ) {
-			
+
 			$class_name = $this->reflection->getNamespaceName() . '\Widgets\\' . $widget;
 
 			if ( $this->is_widget() ) {
 				$widget_manager->register_widget_type( new $class_name() );
 			}
-			
 		}
 	}
 
@@ -107,6 +106,6 @@ abstract class Widgets_Loader {
 	 * @return array
 	 */
 	public function get_widgets() {
-		return array();
+		return [];
 	}
 }

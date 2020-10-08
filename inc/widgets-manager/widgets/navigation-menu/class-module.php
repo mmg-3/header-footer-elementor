@@ -4,7 +4,8 @@
  *
  * @package header-footer-elementor
  */
-namespace HFE\WidgetsManager\Widgets\SearchButton;
+
+namespace HFE\WidgetsManager\Widgets\NavigationMenu;
 
 use HFE\WidgetsManager\Widgets_Loader;
 
@@ -26,9 +27,9 @@ class Module extends Widgets_Loader {
 	 * @return array Widgets.
 	 */
 	public function get_widgets() {
-		return array(
-			'Search_Button',
-		);
+		return [
+			'Navigation_Menu',
+		];
 	}
 
 	/**

@@ -4,7 +4,8 @@
  *
  * @package header-footer-elementor
  */
-namespace HFE\WidgetsManager\Widgets\SiteTagline;
+
+namespace HFE\WidgetsManager\Widgets\Retina;
 
 use HFE\WidgetsManager\Widgets_Loader;
 
@@ -26,9 +27,9 @@ class Module extends Widgets_Loader {
 	 * @return array Widgets.
 	 */
 	public function get_widgets() {
-		return array(
-			'Site_Tagline',
-		);
+		return [
+			'Retina',
+		];
 	}
 
 	/**
@@ -36,5 +37,23 @@ class Module extends Widgets_Loader {
 	 */
 	public function __construct() { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
 		parent::__construct();
+
+		// Add svg support.
+		add_filter( 'upload_mimes', [ $this, 'hfe_svg_mime_types' ] );
 	}
+
+	/**
+	 * Provide the SVG support for Retina Logo widget.
+	 *
+	 * @param array $mimes which return mime type.
+	 *
+	 * @since  1.2.0
+	 * @return $mimes.
+	 */
+	public function hfe_svg_mime_types( $mimes ) {
+		// New allowed mime types.
+		$mimes['svg'] = 'image/svg+xml';
+		return $mimes;
+	}
+
 }
