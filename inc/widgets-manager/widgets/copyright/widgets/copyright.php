@@ -5,7 +5,7 @@
  * @package Header Footer Elementor
  */
 
-namespace HFE\WidgetsManager\Widgets;
+namespace HFE\WidgetsManager\Widgets\Copyright\Widgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Utils;

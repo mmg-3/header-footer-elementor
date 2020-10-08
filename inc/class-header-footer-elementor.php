@@ -20,6 +20,13 @@ class Header_Footer_Elementor {
 	public $template;
 
 	/**
+	 * Member Variable
+	 *
+	 * @var Modules Manager
+	 */
+	public $modules_manager;
+
+	/**
 	 * Instance of Elemenntor Frontend class.
 	 *
 	 * @var \Elementor\Frontend()
@@ -232,7 +239,19 @@ class Header_Footer_Elementor {
 		require_once HFE_DIR . 'inc/class-hfe-update.php';
 
 		// Load the widgets.
-		require HFE_DIR . 'inc/widgets-manager/class-widgets-loader.php';
+		require HFE_DIR . 'inc/widgets-manager/class-widgets-manager.php';
+
+		add_action( 'elementor/init', array( $this, 'elementor_init' ) );
+	}
+
+	/**
+	 * Elementor Init.
+	 *
+	 * @since 0.0.1
+	 */
+	public function elementor_init() {
+
+		$this->modules_manager = new \HFE\WidgetsManager\Widgets_Manager();
 	}
 
 	/**

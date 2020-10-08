@@ -5,7 +5,7 @@
  * @package header-footer-elementor
  */
 
-namespace HFE\WidgetsManager\Widgets;
+namespace HFE\WidgetsManager\Widgets\Retina\Widgets;
 
 use Elementor\Controls_Manager;
 use Elementor\Control_Media;
@@ -16,7 +16,6 @@ use Elementor\Group_Control_Box_Shadow;
 use Elementor\Scheme_Typography;
 use Elementor\Scheme_Color;
 use Elementor\Group_Control_Image_Size;
-use Elementor\Repeater;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Plugin;
@@ -27,51 +26,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * HFE Site Logo widget
+ * HFE Retina widget
  *
- * HFE widget for Site Logo.
+ * HFE widget for Retina Image.
  *
- * @since 1.3.0
+ * @since 1.2.0
  */
-class Site_Logo extends Widget_Base {
-
+class Retina extends Widget_Base {
 	/**
 	 * Retrieve the widget name.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget name.
 	 */
 	public function get_name() {
-		return 'site-logo';
+		return 'retina';
 	}
 
 	/**
 	 * Retrieve the widget title.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Site Logo', 'header-footer-elementor' );
+		return __( 'Retina Image', 'header-footer-elementor' );
 	}
 
 	/**
 	 * Retrieve the widget icon.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @access public
 	 *
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'hfe-icon-site-logo';
+		return 'hfe-icon-retina-image';
 	}
 
 	/**
@@ -82,7 +80,7 @@ class Site_Logo extends Widget_Base {
 	 * Note that currently Elementor supports only one category.
 	 * When multiple categories passed, Elementor uses the first one.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @access public
 	 *
@@ -93,64 +91,61 @@ class Site_Logo extends Widget_Base {
 	}
 
 	/**
-	 * Register Site Logo controls.
+	 * Register Retina Logo controls.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access protected
 	 */
 	protected function _register_controls() {
-		$this->register_content_site_logo_controls();
-		$this->register_site_logo_styling_controls();
-		$this->register_site_logo_caption_styling_controls();
+		$this->register_content_retina_image_controls();
+		$this->register_retina_image_styling_controls();
+		$this->register_retina_caption_styling_controls();
+		$this->register_helpful_information();
 	}
 
 	/**
-	 * Register Site Logo General Controls.
+	 * Register Retina Logo General Controls.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access protected
 	 */
-	protected function register_content_site_logo_controls() {
+	protected function register_content_retina_image_controls() {
 		$this->start_controls_section(
-			'section_site_image',
+			'section_retina_image',
 			[
-				'label' => __( 'Site Logo', 'header-footer-elementor' ),
+				'label' => __( 'Retina Image', 'header-footer-elementor' ),
 			]
 		);
-
 		$this->add_control(
-			'site_logo_fallback',
+			'retina_image',
 			[
-				'label'       => __( 'Custom Image', 'header-footer-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'yes'         => __( 'Yes', 'header-footer-elementor' ),
-				'no'          => __( 'No', 'header-footer-elementor' ),
-				'default'     => 'no',
-				'render_type' => 'template',
-			]
-		);
-
-		$this->add_control(
-			'custom_image',
-			[
-				'label'     => __( 'Add Image', 'header-footer-elementor' ),
-				'type'      => Controls_Manager::MEDIA,
-				'dynamic'   => [
+				'label'   => __( 'Choose Default Image', 'header-footer-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'dynamic' => [
 					'active' => true,
 				],
-				'default'   => [
+				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
-				],
-				'condition' => [
-					'site_logo_fallback' => 'yes',
 				],
 			]
 		);
-
+		$this->add_control(
+			'real_retina',
+			[
+				'label'   => __( 'Choose Retina Image', 'header-footer-elementor' ),
+				'type'    => Controls_Manager::MEDIA,
+				'dynamic' => [
+					'active' => true,
+				],
+				'default' => [
+					'url' => Utils::get_placeholder_image_src(),
+				],
+			]
+		);
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			[
-				'name'    => 'site_logo_size',
+				'name'    => 'retina_image',
 				'label'   => __( 'Image Size', 'header-footer-elementor' ),
 				'default' => 'medium',
 			]
@@ -176,7 +171,7 @@ class Site_Logo extends Widget_Base {
 				],
 				'default'   => 'center',
 				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo-container, {{WRAPPER}} .hfe-caption-width figcaption' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .hfe-retina-image-container, {{WRAPPER}} .hfe-caption-width' => 'text-align: {{VALUE}};',
 				],
 			]
 		);
@@ -187,10 +182,10 @@ class Site_Logo extends Widget_Base {
 				'label'   => __( 'Caption', 'header-footer-elementor' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'no'  => __( 'No', 'header-footer-elementor' ),
-					'yes' => __( 'Yes', 'header-footer-elementor' ),
+					'none'   => __( 'None', 'header-footer-elementor' ),
+					'custom' => __( 'Custom Caption', 'header-footer-elementor' ),
 				],
-				'default' => 'no',
+				'default' => 'none',
 			]
 		);
 
@@ -200,9 +195,9 @@ class Site_Logo extends Widget_Base {
 				'label'       => __( 'Custom Caption', 'header-footer-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'default'     => '',
-				'placeholder' => __( 'Enter caption', 'header-footer-elementor' ),
+				'placeholder' => __( 'Enter your image caption', 'header-footer-elementor' ),
 				'condition'   => [
-					'caption_source' => 'yes',
+					'caption_source' => 'custom',
 				],
 				'dynamic'     => [
 					'active' => true,
@@ -216,12 +211,10 @@ class Site_Logo extends Widget_Base {
 			[
 				'label'   => __( 'Link', 'header-footer-elementor' ),
 				'type'    => Controls_Manager::SELECT,
-				'default' => 'default',
+				'default' => 'none',
 				'options' => [
-					'default' => __( 'Default', 'header-footer-elementor' ),
-					'none'    => __( 'None', 'header-footer-elementor' ),
-					'file'    => __( 'Media File', 'header-footer-elementor' ),
-					'custom'  => __( 'Custom URL', 'header-footer-elementor' ),
+					'none'   => __( 'None', 'header-footer-elementor' ),
+					'custom' => __( 'Custom URL', 'header-footer-elementor' ),
 				],
 			]
 		);
@@ -241,45 +234,19 @@ class Site_Logo extends Widget_Base {
 				'show_label'  => false,
 			]
 		);
-
-		$this->add_control(
-			'open_lightbox',
-			[
-				'label'     => __( 'Lightbox', 'header-footer-elementor' ),
-				'type'      => Controls_Manager::SELECT,
-				'default'   => 'default',
-				'options'   => [
-					'default' => __( 'Default', 'header-footer-elementor' ),
-					'yes'     => __( 'Yes', 'header-footer-elementor' ),
-					'no'      => __( 'No', 'header-footer-elementor' ),
-				],
-				'condition' => [
-					'link_to' => 'file',
-				],
-			]
-		);
-
-		$this->add_control(
-			'view',
-			[
-				'label'   => __( 'View', 'header-footer-elementor' ),
-				'type'    => Controls_Manager::HIDDEN,
-				'default' => 'traditional',
-			]
-		);
 		$this->end_controls_section();
 	}
 	/**
-	 * Register Site Image Style Controls.
+	 * Register Retina Image Style Controls.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access protected
 	 */
-	protected function register_site_logo_styling_controls() {
+	protected function register_retina_image_styling_controls() {
 		$this->start_controls_section(
-			'section_style_site_logo_image',
+			'section_style_retina_image',
 			[
-				'label' => __( 'Site logo', 'header-footer-elementor' ),
+				'label' => __( 'Retina Image', 'header-footer-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -314,7 +281,8 @@ class Site_Logo extends Widget_Base {
 					],
 				],
 				'selectors'      => [
-					'{{WRAPPER}} .hfe-site-logo .hfe-site-logo-container img' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .hfe-retina-image img' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .hfe-retina-image .wp-caption .widget-image-caption' => 'width: {{SIZE}}{{UNIT}}; display: inline-block;',
 				],
 			]
 		);
@@ -341,7 +309,8 @@ class Site_Logo extends Widget_Base {
 					],
 				],
 				'selectors'      => [
-					'{{WRAPPER}} .hfe-site-logo img' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .hfe-retina-image img' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .wp-caption-text'      => 'max-width: {{SIZE}}{{UNIT}}; display: inline-block; width: 100%;',
 				],
 			]
 		);
@@ -355,18 +324,7 @@ class Site_Logo extends Widget_Base {
 		);
 
 		$this->add_control(
-			'site_logo_background_color',
-			[
-				'label'     => __( 'Background Color', 'header-footer-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo-set .hfe-site-logo-container' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'site_logo_image_border',
+			'retina_image_border',
 			[
 				'label'       => __( 'Border Style', 'header-footer-elementor' ),
 				'type'        => Controls_Manager::SELECT,
@@ -380,12 +338,12 @@ class Site_Logo extends Widget_Base {
 					'dashed' => __( 'Dashed', 'header-footer-elementor' ),
 				],
 				'selectors'   => [
-					'{{WRAPPER}} .hfe-site-logo-container .hfe-site-logo-img' => 'border-style: {{VALUE}};',
+					'{{WRAPPER}} .hfe-retina-image-container .hfe-retina-img' => 'border-style: {{VALUE}};',
 				],
 			]
 		);
 		$this->add_control(
-			'site_logo_image_border_size',
+			'retina_image_border_size',
 			[
 				'label'      => __( 'Border Width', 'header-footer-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
@@ -398,16 +356,16 @@ class Site_Logo extends Widget_Base {
 					'unit'   => 'px',
 				],
 				'condition'  => [
-					'site_logo_image_border!' => 'none',
+					'retina_image_border!' => 'none',
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .hfe-site-logo-container .hfe-site-logo-img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .hfe-retina-image-container .hfe-retina-img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
 		$this->add_control(
-			'site_logo_image_border_color',
+			'retina_image_border_color',
 			[
 				'label'     => __( 'Border Color', 'header-footer-elementor' ),
 				'type'      => Controls_Manager::COLOR,
@@ -416,11 +374,11 @@ class Site_Logo extends Widget_Base {
 					'value' => Scheme_Color::COLOR_1,
 				],
 				'condition' => [
-					'site_logo_image_border!' => 'none',
+					'retina_image_border!' => 'none',
 				],
 				'default'   => '',
 				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo-container .hfe-site-logo-img' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .hfe-retina-image-container .hfe-retina-img' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
@@ -432,7 +390,7 @@ class Site_Logo extends Widget_Base {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .hfe-site-logo img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .hfe-retina-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -444,7 +402,7 @@ class Site_Logo extends Widget_Base {
 				'exclude'  => [
 					'box_shadow_position',
 				],
-				'selector' => '{{WRAPPER}} .hfe-site-logo img',
+				'selector' => '{{WRAPPER}} .hfe-retina-image img',
 			]
 		);
 
@@ -470,7 +428,7 @@ class Site_Logo extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo img' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .hfe-retina-image img' => 'opacity: {{SIZE}};',
 				],
 			]
 		);
@@ -479,7 +437,7 @@ class Site_Logo extends Widget_Base {
 			Group_Control_Css_Filter::get_type(),
 			[
 				'name'     => 'css_filters',
-				'selector' => '{{WRAPPER}} .hfe-site-logo img',
+				'selector' => '{{WRAPPER}} .hfe-retina-image img',
 			]
 		);
 
@@ -504,8 +462,24 @@ class Site_Logo extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo:hover img' => 'opacity: {{SIZE}};',
+					'{{WRAPPER}} .hfe-retina-image:hover img' => 'opacity: {{SIZE}};',
 				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Css_Filter::get_type(),
+			[
+				'name'     => 'css_filters_hover',
+				'selector' => '{{WRAPPER}} .hfe-retina-image:hover img',
+			]
+		);
+
+		$this->add_control(
+			'hover_animation',
+			[
+				'label' => __( 'Hover Animation', 'header-footer-elementor' ),
+				'type'  => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
 		$this->add_control(
@@ -520,24 +494,8 @@ class Site_Logo extends Widget_Base {
 					],
 				],
 				'selectors' => [
-					'{{WRAPPER}} .hfe-site-logo img' => 'transition-duration: {{SIZE}}s',
+					'{{WRAPPER}} .hfe-retina-image img' => 'transition-duration: {{SIZE}}s',
 				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Css_Filter::get_type(),
-			[
-				'name'     => 'css_filters_hover',
-				'selector' => '{{WRAPPER}} .hfe-site-logo:hover img',
-			]
-		);
-
-		$this->add_control(
-			'hover_animation',
-			[
-				'label' => __( 'Hover Animation', 'header-footer-elementor' ),
-				'type'  => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
 
@@ -548,12 +506,12 @@ class Site_Logo extends Widget_Base {
 		$this->end_controls_section();
 	}
 	/**
-	 * Register Site Logo style Controls.
+	 * Register Caption style Controls.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access protected
 	 */
-	protected function register_site_logo_caption_styling_controls() {
+	protected function register_retina_caption_styling_controls() {
 		$this->start_controls_section(
 			'section_style_caption',
 			[
@@ -623,7 +581,7 @@ class Site_Logo extends Widget_Base {
 		$this->add_responsive_control(
 			'caption_space',
 			[
-				'label'     => __( 'Spacing', 'header-footer-elementor' ),
+				'label'     => __( 'Caption Top Spacing', 'header-footer-elementor' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -645,213 +603,226 @@ class Site_Logo extends Widget_Base {
 	}
 
 	/**
+	 * Helpful Information.
+	 *
+	 * @since 1.2.0
+	 * @access protected
+	 */
+	protected function register_helpful_information() {
+
+			$help_link_1 = HFE_DOMAIN . 'docs/introducing-retina-image-widget';
+
+			$this->start_controls_section(
+				'section_helpful_info',
+				[
+					'label' => __( 'Helpful Information', 'header-footer-elementor' ),
+				]
+			);
+
+			$this->add_control(
+				'help_doc_1',
+				[
+					'type'            => Controls_Manager::RAW_HTML,
+					/* translators: %1$s doc link */
+					'raw'             => sprintf( __( '%1$s Getting started article » %2$s', 'header-footer-elementor' ), '<a href=' . $help_link_1 . 'docs/introducing-retina-image-widget/" target="_blank" rel="noopener">', '</a>' ),
+					'content_classes' => 'hfe-editor-doc',
+				]
+			);
+
+			$this->end_controls_section();
+	}
+
+	/**
 	 * Check if the current widget has caption
 	 *
 	 * @access private
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 *
 	 * @param array $settings returns settings.
 	 *
 	 * @return boolean
 	 */
 	private function has_caption( $settings ) {
-		return ( ! empty( $settings['caption_source'] ) && 'no' !== $settings['caption_source'] );
+		return ( ! empty( $settings['caption_source'] ) && 'none' !== $settings['caption_source'] );
 	}
 
 	/**
 	 * Get the caption for current widget.
 	 *
 	 * @access private
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @param array $settings returns the caption.
 	 *
 	 * @return string
 	 */
 	private function get_caption( $settings ) {
 		$caption = '';
-		if ( 'yes' === $settings['caption_source'] ) {
+		if ( 'custom' === $settings['caption_source'] ) {
 			$caption = ! empty( $settings['caption'] ) ? $settings['caption'] : '';
 		}
 		return $caption;
 	}
 
 	/**
-	 * Render Site Image output on the frontend.
+	 * Render Retina Image output on the frontend.
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *
-	 * @since 1.3.0
-	 * @param array $size returns the size of an image.
-	 * @access public
-	 */
-	public function site_image_url( $size ) {
-		$settings = $this->get_settings_for_display();
-		if ( ! empty( $settings['custom_image']['url'] ) ) {
-			$logo = wp_get_attachment_image_src( $settings['custom_image']['id'], $size, true );
-		} else {
-			$logo = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), $size, true );
-		}
-		return $logo[0];
-	}
-
-	/**
-	 * Render Site Image output on the frontend.
-	 *
-	 * Written in PHP and used to generate the final HTML.
-	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access protected
 	 */
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$has_caption = $this->has_caption( $settings );
-
-		$this->add_render_attribute( 'wrapper', 'class', 'hfe-site-logo' );
-
-		$size = $settings['site_logo_size_size'];
-
-		$site_image = $this->site_image_url( $size );
-
-		if ( site_url() . '/wp-includes/images/media/default.png' === $site_image ) {
-			$site_image = site_url() . '/wp-content/plugins/elementor/assets/images/placeholder.png';
-		} else {
-			$site_image = $site_image;
+		if ( empty( $settings['retina_image']['url'] ) ) {
+			return;
 		}
 
-		if ( 'file' === $settings['link_to'] ) {
-				$link = $site_image;
-				$this->add_render_attribute( 'link', 'href', $link );
-		} elseif ( 'default' === $settings['link_to'] ) {
-			$link = site_url();
-			$this->add_render_attribute( 'link', 'href', $link );
-		} else {
-			$link     = $this->get_link_url( $settings );
-			$link_url = isset( $link['url'] ) ? $link['url'] : '';
-			$this->add_render_attribute( 'link', 'href', $link_url );
-			if ( ! empty( $link['nofollow'] ) ) {
-				$this->add_render_attribute( 'link', 'rel', 'nofollow' );
+		$has_caption = $this->has_caption( $settings );
+
+		$this->add_render_attribute( 'wrapper', 'class', 'hfe-retina-image' );
+		$link = $this->get_link_url( $settings );
+
+		if ( $link ) {
+			$this->add_render_attribute(
+				'link',
+				[
+					'href' => $link['url'],
+				]
+			);
+
+			if ( Plugin::$instance->editor->is_edit_mode() ) {
+				$this->add_render_attribute(
+					'link',
+					[
+						'class' => 'elementor-clickable',
+					]
+				);
 			}
+
 			if ( ! empty( $link['is_external'] ) ) {
 				$this->add_render_attribute( 'link', 'target', '_blank' );
 			}
+
+			if ( ! empty( $link['nofollow'] ) ) {
+				$this->add_render_attribute( 'link', 'rel', 'nofollow' );
+			}
 		}
-		$class = '';
-		if ( Plugin::$instance->editor->is_edit_mode() ) {
-			$class = 'elementor-non-clickable';
-		} else {
-			$class = 'elementor-clickable';
-		}
+
 		?>
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
-		<?php if ( $has_caption ) : ?>
+			<?php if ( $has_caption ) : ?>
 				<figure class="wp-caption">
-		<?php endif; ?>
-		<?php if ( $link ) : ?>
-					<?php
-					if ( 'no' === $settings['open_lightbox'] ) {
-						$class = 'elementor-non-clickable';
-					}
-					?>
-				<a data-elementor-open-lightbox="<?php echo esc_attr( $settings['open_lightbox'] ); ?>"  class='<?php echo  esc_attr( $class ); ?>' <?php echo $this->get_render_attribute_string( 'link' ); ?>>
-		<?php endif; ?>
-		<?php
-		if ( empty( $site_image ) ) {
-			return;
-		}
-		$img_animation = '';
-
-		if ( 'custom' !== $size ) {
-			$image_size = $size;
-		} else {
-			require_once ELEMENTOR_PATH . 'includes/libraries/bfi-thumb/bfi-thumb.php';
-
-			$image_dimension = $settings['site_logo_size_custom_dimension'];
-
-			$image_size = [
-				// Defaults sizes.
-				0           => null, // Width.
-				1           => null, // Height.
-
-				'bfi_thumb' => true,
-				'crop'      => true,
-			];
-
-			$has_custom_size = false;
-			if ( ! empty( $image_dimension['width'] ) ) {
-				$has_custom_size = true;
-				$image_size[0]   = $image_dimension['width'];
-			}
-
-			if ( ! empty( $image_dimension['height'] ) ) {
-				$has_custom_size = true;
-				$image_size[1]   = $image_dimension['height'];
-			}
-
-			if ( ! $has_custom_size ) {
-				$image_size = 'full';
-			}
-		}
-
-		$image_url = $site_image;
-
-		if ( ! empty( $settings['custom_image']['url'] ) ) {
-			$image_data = wp_get_attachment_image_src( $settings['custom_image']['id'], $image_size, true );
-		} else {
-			$image_data = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), $image_size, true );
-		}
-
-		$site_image_class = 'elementor-animation-';
-
-		if ( ! empty( $settings['hover_animation'] ) ) {
-			$img_animation = $settings['hover_animation'];
-		}
-		if ( ! empty( $image_data ) ) {
-			$image_url = $image_data[0];
-		}
-
-		if ( site_url() . '/wp-includes/images/media/default.png' === $image_url ) {
-			$image_url = site_url() . '/wp-content/plugins/elementor/assets/images/placeholder.png';
-		} else {
-			$image_url = $image_url;
-		}
-
-		$class_animation = $site_image_class . $img_animation;
-
-		$image_unset = site_url() . '/wp-content/plugins/elementor/assets/images/placeholder.png';
-
-		if ( $image_unset !== $image_url ) {
-			$image_url = $image_url;
-		}
-
-		?>
-			<div class="hfe-site-logo-set">           
-				<div class="hfe-site-logo-container">
-					<img class="hfe-site-logo-img <?php echo esc_attr( $class_animation ); ?>"  src="<?php echo esc_url( $image_url ); ?>"/>
-				</div>
-			</div>
-		<?php if ( $link ) : ?>
-					</a>
-		<?php endif; ?>
-		<?php
-		if ( $has_caption ) :
-			$caption_text = $this->get_caption( $settings );
-			?>
-			<?php if ( ! empty( $caption_text ) ) : ?>
-					<div class="hfe-caption-width"> 
-						<figcaption class="widget-image-caption wp-caption-text"><?php echo wp_kses_post( $caption_text ); ?></figcaption>
-					</div>
 			<?php endif; ?>
-				</figure>
-		<?php endif; ?>
-		</div>  
+			<?php if ( $link ) : ?>
+					<a <?php echo $this->get_render_attribute_string( 'link' ); ?>>
+			<?php endif; ?>
 			<?php
+			$size = $settings[ 'retina_image' . '_size' ];
+			$demo = '';
+
+			if ( 'custom' !== $size ) {
+				$image_size = $size;
+			} else {
+				require_once ELEMENTOR_PATH . 'includes/libraries/bfi-thumb/bfi-thumb.php';
+
+				$image_dimension = $settings[ 'retina_image' . '_custom_dimension' ];
+
+				$image_size = [
+					// Defaults sizes.
+					0           => null, // Width.
+					1           => null, // Height.
+
+					'bfi_thumb' => true,
+					'crop'      => true,
+				];
+
+				$has_custom_size = false;
+				if ( ! empty( $image_dimension['width'] ) ) {
+					$has_custom_size = true;
+					$image_size[0]   = $image_dimension['width'];
+				}
+
+				if ( ! empty( $image_dimension['height'] ) ) {
+					$has_custom_size = true;
+					$image_size[1]   = $image_dimension['height'];
+				}
+
+				if ( ! $has_custom_size ) {
+					$image_size = 'full';
+				}
+			}
+			$retina_image_url = $settings['real_retina']['url'];
+
+			$image_url = $settings['retina_image']['url'];
+
+			$image_data = wp_get_attachment_image_src( $settings['retina_image']['id'], $image_size, true );
+
+			$retina_data = wp_get_attachment_image_src( $settings['real_retina']['id'], $image_size, true );
+
+			$retina_image_class = 'elementor-animation-';
+
+			if ( ! empty( $settings['hover_animation'] ) ) {
+				$demo = $settings['hover_animation'];
+			}
+			if ( ! empty( $image_data ) ) {
+				$image_url = $image_data[0];
+			}
+			if ( ! empty( $retina_data ) ) {
+				$retina_image_url = $retina_data[0];
+			}
+			$class_animation = $retina_image_class . $demo;
+
+			$image_unset         = site_url() . '/wp-includes/images/media/default.png';
+			$placeholder_img_url = Utils::get_placeholder_image_src();
+
+			if ( $image_unset === $retina_image_url ) {
+				if ( $image_unset !== $image_url ) {
+					$retina_image_url = $image_url;
+				} else {
+					$retina_image_url = $placeholder_img_url;
+				}
+			}
+
+			if ( $image_unset === $image_url ) {
+				$image_url = $placeholder_img_url;
+			}
+
+			if ( strpos( $_SERVER['HTTP_USER_AGENT'], 'Chrome' ) !== false ) {
+				$date             = new \DateTime();
+				$timestam         = $date->getTimestamp();
+				$image_url        = $image_url . '?' . $timestam;
+				$retina_image_url = $retina_image_url . '?' . $timestam;
+			}
+
+			?>
+				<div class="hfe-retina-image-set">
+					<div class="hfe-retina-image-container">
+						<img class="hfe-retina-img <?php echo $class_animation; ?>"  src="<?php echo $image_url; ?>" srcset="<?php echo $image_url . ' 1x' . ',' . $retina_image_url . ' 2x'; ?>"/>
+					</div>
+				</div>
+			<?php if ( $link ) : ?>
+					</a>
+			<?php endif; ?>
+			<?php
+			if ( $has_caption ) :
+				$caption_text = $this->get_caption( $settings );
+				?>
+				<?php if ( ! empty( $caption_text ) ) : ?>
+					<div class="hfe-caption-width"> 
+						<figcaption class="widget-image-caption wp-caption-text"><?php echo $caption_text; ?></figcaption>
+					</div>
+				<?php endif; ?>
+				</figure>
+			<?php endif; ?>
+		</div> 
+		<?php
 	}
 
 	/**
-	 * Retrieve Site Logo widget link URL.
+	 * Retrieve Retina image widget link URL.
 	 *
-	 * @since 1.3.0
+	 * @since 1.2.0
 	 * @access private
 	 *
 	 * @param array $settings returns settings.
@@ -867,13 +838,6 @@ class Site_Logo extends Widget_Base {
 				return false;
 			}
 			return $settings['link'];
-		}
-
-		if ( 'default' === $settings['link_to'] ) {
-			if ( empty( $settings['link']['url'] ) ) {
-				return false;
-			}
-			return site_url();
 		}
 	}
 }
