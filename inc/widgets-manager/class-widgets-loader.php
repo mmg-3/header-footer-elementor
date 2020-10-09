@@ -79,7 +79,7 @@ abstract class Widgets_Loader {
 	public function __construct() {
 		$this->reflection = new \ReflectionClass( $this );
 
-		//Register widgets.
+		// Register widgets.
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 	}
 

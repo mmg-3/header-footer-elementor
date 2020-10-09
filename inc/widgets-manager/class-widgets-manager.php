@@ -80,10 +80,10 @@ class Widgets_Manager {
 	 * Constructor.
 	 */
 	public function __construct() {
-		//Register HFE Category.
+		// Register HFE Category.
 		add_action( 'elementor/elements/categories_registered', [ $this, 'register_widget_category' ] );
 
-		//Widgets files.
+		// Widgets files.
 		$this->require_files();
 		$this->register_modules();
 	}
