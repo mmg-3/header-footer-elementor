@@ -8,7 +8,7 @@
 namespace HFE\WidgetsManager\Widgets\MiniCart;
 
 use HFE\WidgetsManager\Widgets_Loader;
-use HFE\WidgetsManager\Widgets\MiniCart\Widgets\MiniCart;
+use HFE\WidgetsManager\Widgets\MiniCart\Widgets\Mini_Cart;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -83,7 +83,7 @@ class Module extends Widgets_Loader {
 
 		$cart_type = get_option( 'hfe_cart_widget_type' );
 
-		MiniCart::get_cart_link( $cart_type );
+		Mini_Cart::get_cart_link( $cart_type );
 
 		$fragments['body:not(.elementor-editor-active) a.hfe-cart-container'] = ob_get_clean();
 
