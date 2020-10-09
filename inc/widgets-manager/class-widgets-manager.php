@@ -102,6 +102,7 @@ class Widgets_Manager {
 				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/class-module.php';
 				require_once HFE_DIR . 'inc/widgets-manager/widgets/' . $data . '/widgets/class-' . $data . '.php';
 			}
+			require_once HFE_DIR . 'inc/widgets-manager/widgets/copyright/widgets/class-copyright-shortcode.php';
 			require_once HFE_DIR . 'inc/widgets-manager/widgets/navigation-menu/widgets/class-menu-walker.php';
 		}
 
