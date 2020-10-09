@@ -1,12 +1,12 @@
 <?php
 /**
- * Widgets loader for Header Footer Elementor.
+ * Widgets manager for Header Footer Elementor.
  *
  * @package     HFE
  * @author      HFE
  * @copyright   Copyright (c) 2018, HFE
  * @link        http://brainstormforce.com/
- * @since       HFE 1.2.0
+ * @since       HFE x.x.x
  */
 
 namespace HFE\WidgetsManager;
@@ -29,7 +29,7 @@ class Widgets_Manager {
 	/**
 	 * Register Modules.
 	 *
-	 * @since 0.0.1
+	 * @since x.x.x
 	 */
 	public function register_modules() {
 		$all_modules = $this->get_widget_list();
@@ -50,7 +50,7 @@ class Widgets_Manager {
 	 *
 	 * @param string $module_name Module Name.
 	 *
-	 * @since 0.0.1
+	 * @since x.x.x
 	 *
 	 * @return Module_Base|Module_Base[]
 	 */
@@ -68,10 +68,11 @@ class Widgets_Manager {
 	/**
 	 * Required Files.
 	 *
-	 * @since 0.0.1
+	 * @since x.x.x
 	 */
 	private function require_files() {
 		require HFE_DIR . 'inc/widgets-manager/class-widgets-loader.php';
+
 		$this->include_widgets_files();
 	}
 
@@ -79,8 +80,10 @@ class Widgets_Manager {
 	 * Constructor.
 	 */
 	public function __construct() {
+		//Register HFE Category.
 		add_action( 'elementor/elements/categories_registered', [ $this, 'register_widget_category' ] );
 
+		//Widgets files.
 		$this->require_files();
 		$this->register_modules();
 	}
@@ -90,7 +93,7 @@ class Widgets_Manager {
 	 *
 	 * Load widgets files
 	 *
-	 * @since 1.2.0
+	 * @since x.x.x
 	 * @access public
 	 */
 	public function include_widgets_files() {
@@ -106,13 +109,14 @@ class Widgets_Manager {
 			require_once HFE_DIR . 'inc/widgets-manager/widgets/navigation-menu/widgets/class-menu-walker.php';
 		}
 
+		// Enqueue the widgets script.
 		if ( ! empty( $js_files ) ) {
 			foreach ( $js_files as $handle => $data ) {
 				wp_register_script( $handle, HFE_URL . $data['path'], $data['dep'], HFE_VER, $data['in_footer'] );
 			}
 		}
 
-		// Emqueue the widgets style.
+		// Enqueue the widgets style.
 		wp_enqueue_style( 'hfe-widgets-style', HFE_URL . 'inc/widgets-css/frontend.css', [], HFE_VER );
 	}
 
@@ -120,7 +124,7 @@ class Widgets_Manager {
 	 * Returns Script array.
 	 *
 	 * @return array()
-	 * @since 1.3.0
+	 * @since x.x.x
 	 */
 	public static function get_widget_script() {
 		$js_files = [
@@ -138,7 +142,7 @@ class Widgets_Manager {
 	 * Returns Script array.
 	 *
 	 * @return array()
-	 * @since 1.3.0
+	 * @since x.x.x
 	 */
 	public static function get_widget_list() {
 		$widget_list = [
@@ -159,7 +163,7 @@ class Widgets_Manager {
 	/**
 	 * Register Category
 	 *
-	 * @since 1.2.0
+	 * @since x.x.x
 	 * @param object $this_cat class.
 	 */
 	public function register_widget_category( $this_cat ) {

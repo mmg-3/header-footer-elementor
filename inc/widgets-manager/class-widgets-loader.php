@@ -1,8 +1,12 @@
 <?php
 /**
- * UAEL Module Base.
+ * Widgets loader for Header Footer Elementor.
  *
- * @package UAEL
+ * @package     HFE
+ * @author      HFE
+ * @copyright   Copyright (c) 2018, HFE
+ * @link        http://brainstormforce.com/
+ * @since       HFE x.x.x
  */
 
 namespace HFE\WidgetsManager;
@@ -44,7 +48,7 @@ abstract class Widgets_Loader {
 	/**
 	 * Check if this is a widget.
 	 *
-	 * @since 1.12.0
+	 * @since x.x.x
 	 * @access public
 	 *
 	 * @return bool true|false.
@@ -74,8 +78,8 @@ abstract class Widgets_Loader {
 	 */
 	public function __construct() {
 		$this->reflection = new \ReflectionClass( $this );
-		// Register category.
 
+		//Register widgets.
 		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 	}
 

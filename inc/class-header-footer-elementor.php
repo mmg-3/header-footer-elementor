@@ -247,7 +247,7 @@ class Header_Footer_Elementor {
 	/**
 	 * Elementor Init.
 	 *
-	 * @since 0.0.1
+	 * @since x.x.x
 	 */
 	public function elementor_init() {
 
